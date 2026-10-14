@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWeave AI — Curated (Bộ sưu tập)</title>
+  <link rel="stylesheet" href="guide-curated.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP HEADER ===================== -->
+  <header class="topbar">
+    <a class="brand" href="../guide-dashboard/guide-dashboard.html" title="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4.5 20 19H4Z"/></svg>
+      TripWeave AI
+    </a>
+    <form class="searchbar" id="globalSearch" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="globalSearchInput" type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động..." autocomplete="off" />
+    </form>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="syncBtn" type="button" title="Đồng bộ dữ liệu (demo)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V6m0 0-3.5 3.5M12 6l3.5 3.5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      </button>
+      <button class="avatar" id="avatarBtn" type="button" title="Nguyễn Văn Minh — Hướng dẫn viên"></button>
+      <div class="avatar-menu" id="avatarMenu" hidden>
+        <div class="avatar-menu-head">
+          <span class="avatar-menu-name" id="avatarMenuName"></span>
+          <span class="avatar-menu-role" id="avatarMenuRole"></span>
+        </div>
+        <a href="../guide-profile/guide-profile.html">Hồ sơ của tôi</a>
+        <a href="../guide-itinerary-review/guide-itinerary-review.html">Lịch trình chờ duyệt</a>
+        <button id="logoutBtn" type="button">Đăng xuất (demo)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="Điều hướng hướng dẫn viên">
+        <a class="side-link" href="../guide-dashboard/guide-dashboard.html">Trang chủ</a>
+        <a class="side-link active" href="../guide-curated/guide-curated.html">Curated</a>
+        <a class="side-link" href="../guide-locations/guide-locations.html">Địa điểm</a>
+        <a class="side-link" href="../guide-itinerary-review/guide-itinerary-review.html">Review lịch trình</a>
+        <a class="side-link" href="../guide-experiences/guide-experiences.html">Trải nghiệm</a>
+        <a class="side-link" href="../guide-profile/guide-profile.html">Hồ sơ</a>
+      </nav>
+      <div class="side-spacer"></div>
+      <div class="side-divider"></div>
+      <div class="side-role">Hướng dẫn viên</div>
+    </aside>
+
+    <main class="content">
+      <div class="content-rule" aria-hidden="true"></div>
+
+      <!-- Thanh công cụ: ô tìm kiếm bộ sưu tập + nút tạo mới -->
+      <section class="card toolbar">
+        <div class="field">
+          <label for="collectionSearch">Tìm bộ sưu tập</label>
+          <div class="searchbar inline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="collectionSearch" type="text" placeholder="Tìm kiếm..." autocomplete="off" />
+          </div>
+        </div>
+        <button class="btn btn-primary" id="createBtn" type="button">+ Tạo bộ sưu tập</button>
+      </section>
+
+      <!-- Bộ lọc: đang hoạt động / lưu trữ -->
+      <div class="chips" id="statusChips">
+        <button class="chip active" data-filter="active" type="button">Đang hoạt động</button>
+        <button class="chip" data-filter="archived" type="button">Lưu trữ</button>
+      </div>
+
+      <!-- Danh sách bộ sưu tập (render bằng JS) -->
+      <section class="stack" id="collectionList"></section>
+    </main>
+  </div>
+
+  <!-- ===================== MODAL TẠO / SỬA ===================== -->
+  <div class="modal-backdrop" id="formModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="formModalTitle">Tạo bộ sưu tập</h2>
+        <button class="modal-close" data-close="formModal" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="field" id="fieldName">
+          <label for="inpName">Tên bộ sưu tập</label>
+          <input class="input" id="inpName" placeholder="VD: Ẩm thực đường phố Sài Gòn" />
+          <span class="field-error">Tên cần tối thiểu 3 ký tự.</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="inpTag">Danh mục</label>
+            <select class="select" id="inpTag">
+              <option>Ẩm thực</option><option>Điểm đến</option>
+              <option>Thiên nhiên</option><option>Văn hóa</option>
+            </select>
+          </div>
+          <div class="field" id="fieldPlaces">
+            <label for="inpPlaces">Số địa điểm</label>
+            <input class="input" id="inpPlaces" type="number" min="1" max="50" value="6" />
+            <span class="field-error">Số địa điểm phải từ 1 đến 50.</span>
+          </div>
+        </div>
+        <div class="field" id="fieldDesc">
+          <label for="inpDesc">Mô tả</label>
+          <textarea class="textarea" id="inpDesc" placeholder="Mô tả ngắn về bộ sưu tập..."></textarea>
+          <span class="field-error">Mô tả cần tối thiểu 10 ký tự.</span>
+        </div>
+        <!-- Ô nhập link ảnh minh họa -->
+        <div class="field">
+          <label for="inpImage">Link ảnh minh họa (URL)</label>
+          <input class="input" id="inpImage" placeholder="Dán link ảnh từ Unsplash hoặc internet..." />
+        </div>
+        <!-- Trợ lý AI mô phỏng: Preference Summarizer — tóm tắt sở thích khách hàng/chủ đề -->
+        <div class="ai-panel">
+          <div class="ai-head">✨ Trợ lý AI tóm tắt sở thích</div>
+          <button class="btn btn-ghost btn-sm" id="aiPrefBtn" type="button">Tóm tắt sở thích nhanh</button>
+          <div id="aiPrefZone" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-danger" id="archiveBtn" type="button" hidden>Lưu trữ</button>
+        <span class="spacer"></span>
+        <button class="btn btn-light" data-close="formModal" type="button">Hủy</button>
+        <button class="btn btn-primary" id="saveCollectionBtn" type="button">Lưu bộ sưu tập</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL XEM CHI TIẾT ===================== -->
+  <div class="modal-backdrop" id="viewModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="viewModalTitle">Chi tiết bộ sưu tập</h2>
+        <button class="modal-close" data-close="viewModal" type="button">✕</button>
+      </div>
+      <div class="modal-body" id="viewModalBody"></div>
+      <div class="modal-foot">
+        <span class="spacer"></span>
+        <button class="btn btn-primary" data-close="viewModal" type="button">Đóng</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast-region" id="toastRegion"></div>
+  <script src="guide-curated.js"></script>
+</body>
+</html>
