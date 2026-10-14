@@ -5,8 +5,7 @@ TripWeave AI là dự án website hỗ trợ người dùng khám phá địa đ
 du lịch và lên kế hoạch cho những chuyến đi.
 
 ## 2. Trang thực hiện
-Trang chủ (Home Page).
-
+Trang chủ (Dashboard).
 ## 3. Mục đích của trang
 Trang chủ giúp người dùng tiếp cận các chức năng chính của TripWeave AI,
 khám phá địa điểm du lịch và tìm hiểu các tiện ích của nền tảng.
@@ -27,7 +26,7 @@ khám phá địa điểm du lịch và tìm hiểu các tiện ích của nền
 https://canva.link/lssnn6ny0t9et4s       DESKTOP
 
 ## 7. Link GitHub Repository
-https://github.com/thanhngoc-07/TripWeaveAI-HomePage
+https://github.com/thanhngoc-07/CSE_122TripWeaveAI_Guide_SV2 
 
 ## 8. Link video thuyết trình
 Dán link video thuyết trình tại đây.
