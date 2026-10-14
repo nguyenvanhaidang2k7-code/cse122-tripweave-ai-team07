@@ -29,4 +29,4 @@ https://canva.link/lssnn6ny0t9et4s       DESKTOP
 https://github.com/thanhngoc-07/CSE_122TripWeaveAI_Guide_SV2 
 
 ## 8. Link video thuyết trình
-Dán link video thuyết trình tại đây.
+https://youtu.be/nGqIGZmj6_c
