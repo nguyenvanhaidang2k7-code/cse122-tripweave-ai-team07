@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWeave AI — Hồ sơ hướng dẫn viên</title>
+  <link rel="stylesheet" href="guide-profile.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP HEADER ===================== -->
+  <header class="topbar">
+    <a class="brand" href="../guide-dashboard/guide-dashboard.html" title="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4.5 20 19H4Z"/></svg>
+      TripWeave AI
+    </a>
+    <form class="searchbar" id="globalSearch" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="globalSearchInput" type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động..." autocomplete="off" />
+    </form>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="syncBtn" type="button" title="Đồng bộ dữ liệu (demo)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V6m0 0-3.5 3.5M12 6l3.5 3.5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      </button>
+      <button class="avatar" id="avatarBtn" type="button" title="Nguyễn Văn Minh — Hướng dẫn viên"></button>
+      <div class="avatar-menu" id="avatarMenu" hidden>
+        <div class="avatar-menu-head">
+          <span class="avatar-menu-name" id="avatarMenuName"></span>
+          <span class="avatar-menu-role" id="avatarMenuRole"></span>
+        </div>
+        <a href="../guide-profile/guide-profile.html">Hồ sơ của tôi</a>
+        <a href="../guide-itinerary-review/guide-itinerary-review.html">Lịch trình chờ duyệt</a>
+        <button id="logoutBtn" type="button">Đăng xuất (demo)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="Điều hướng hướng dẫn viên">
+        <a class="side-link" href="../guide-dashboard/guide-dashboard.html">Trang chủ</a>
+        <a class="side-link" href="../guide-curated/guide-curated.html">Curated</a>
+        <a class="side-link" href="../guide-locations/guide-locations.html">Địa điểm</a>
+        <a class="side-link" href="../guide-itinerary-review/guide-itinerary-review.html">Review lịch trình</a>
+        <a class="side-link" href="../guide-experiences/guide-experiences.html">Trải nghiệm</a>
+        <a class="side-link active" href="../guide-profile/guide-profile.html">Hồ sơ</a>
+      </nav>
+      <div class="side-spacer"></div>
+      <div class="side-divider"></div>
+      <div class="side-role">Hướng dẫn viên</div>
+    </aside>
+
+    <main class="content">
+      <div class="content-rule" aria-hidden="true"></div>
+
+      <!-- Thẻ đầu hồ sơ -->
+      <section class="card profile-head">
+        <div class="avatar-lg" aria-hidden="true"></div>
+        <div class="row-info">
+          <h1 class="profile-name" id="profileName">...</h1>
+          <p class="row-meta" id="profileRole">...</p>
+        </div>
+        <div class="profile-stats" id="profileStats"></div>
+      </section>
+
+      <section class="profile-grid">
+        <!-- Thông tin chi tiết -->
+        <div class="card panel">
+          <div class="panel-head"><h2>Thông tin</h2></div>
+          <ul class="info-list" id="infoList"></ul>
+        </div>
+        <!-- Đánh giá gần đây -->
+        <div class="card panel">
+          <div class="panel-head"><h2>Đánh giá gần đây</h2></div>
+          <ul class="review-list" id="reviewList"></ul>
+        </div>
+      </section>
+
+      <div class="profile-foot">
+        <button class="btn btn-primary btn-lg" id="editProfileBtn" type="button">Chỉnh sửa hồ sơ</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ MODAL CHỈNH SỬA HỒ SƠ ============ -->
+  <div class="modal-backdrop" id="editModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title">Chỉnh sửa hồ sơ</h2>
+        <button class="modal-close" data-close="editModal" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field" id="fieldName">
+            <label for="inpName">Họ và tên</label>
+            <input class="input" id="inpName" />
+            <span class="field-error">Họ tên không được để trống.</span>
+          </div>
+          <div class="field">
+            <label for="inpCity">Thành phố</label>
+            <input class="input" id="inpCity" />
+          </div>
+          <div class="field">
+            <label for="inpSpecialties">Chuyên môn</label>
+            <input class="input" id="inpSpecialties" />
+          </div>
+          <div class="field" id="fieldExp">
+            <label for="inpExperience">Kinh nghiệm</label>
+            <input class="input" id="inpExperience" placeholder="VD: 5 năm" />
+            <span class="field-error">Kinh nghiệm cần chứa số năm (VD: 5 năm).</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="inpRegion">Khu vực hoạt động</label>
+          <input class="input" id="inpRegion" />
+        </div>
+        <div class="field">
+          <label for="inpLanguages">Ngôn ngữ</label>
+          <input class="input" id="inpLanguages" />
+        </div>
+      </div>
+      <div class="modal-foot">
+        <span class="spacer"></span>
+        <button class="btn btn-light" data-close="editModal" type="button">Hủy</button>
+        <button class="btn btn-primary" id="saveProfileBtn" type="button">Lưu hồ sơ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toastRegion"></div>
+  <script src="guide-profile.js"></script>
+</body>
+</html>
