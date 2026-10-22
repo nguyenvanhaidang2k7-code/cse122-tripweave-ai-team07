@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWeave AI — Trải nghiệm</title>
+  <link rel="stylesheet" href="guide-experiences.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP HEADER ===================== -->
+  <header class="topbar">
+    <a class="brand" href="../guide-dashboard/guide-dashboard.html" title="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4.5 20 19H4Z"/></svg>
+      TripWeave AI
+    </a>
+    <form class="searchbar" id="globalSearch" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="globalSearchInput" type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động..." autocomplete="off" />
+    </form>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="syncBtn" type="button" title="Đồng bộ dữ liệu (demo)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V6m0 0-3.5 3.5M12 6l3.5 3.5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      </button>
+      <button class="avatar" id="avatarBtn" type="button" title="Nguyễn Văn Minh — Hướng dẫn viên"></button>
+      <div class="avatar-menu" id="avatarMenu" hidden>
+        <div class="avatar-menu-head">
+          <span class="avatar-menu-name" id="avatarMenuName"></span>
+          <span class="avatar-menu-role" id="avatarMenuRole"></span>
+        </div>
+        <a href="../guide-profile/guide-profile.html">Hồ sơ của tôi</a>
+        <a href="../guide-itinerary-review/guide-itinerary-review.html">Lịch trình chờ duyệt</a>
+        <button id="logoutBtn" type="button">Đăng xuất (demo)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="Điều hướng hướng dẫn viên">
+        <a class="side-link" href="../guide-dashboard/guide-dashboard.html">Trang chủ</a>
+        <a class="side-link" href="../guide-curated/guide-curated.html">Curated</a>
+        <a class="side-link" href="../guide-locations/guide-locations.html">Địa điểm</a>
+        <a class="side-link" href="../guide-itinerary-review/guide-itinerary-review.html">Review lịch trình</a>
+        <a class="side-link active" href="../guide-experiences/guide-experiences.html">Trải nghiệm</a>
+        <a class="side-link" href="../guide-profile/guide-profile.html">Hồ sơ</a>
+      </nav>
+      <div class="side-spacer"></div>
+      <div class="side-divider"></div>
+      <div class="side-role">Hướng dẫn viên</div>
+    </aside>
+
+    <main class="content">
+      <div class="content-rule" aria-hidden="true"></div>
+
+      <!-- Lọc theo danh mục trải nghiệm -->
+      <div class="chips" id="catChips">
+        <button class="chip active" data-cat="all" type="button">Tất cả</button>
+        <button class="chip" data-cat="Văn hóa" type="button">Văn hóa</button>
+        <button class="chip" data-cat="Ẩm thực" type="button">Ẩm thực</button>
+        <button class="chip" data-cat="Thiên nhiên" type="button">Thiên nhiên</button>
+      </div>
+
+      <!-- Lưới thẻ trải nghiệm (render bằng JS) -->
+      <section class="exp-grid" id="expGrid"></section>
+    </main>
+  </div>
+
+  <!-- ============ MODAL THÊM VÀO BỘ SƯU TẬP ============ -->
+  <div class="modal-backdrop" id="addModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="addModalTitle">Thêm vào bộ sưu tập</h2>
+        <button class="modal-close" data-close="addModal" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="addModalDesc">Chọn bộ sưu tập muốn thêm trải nghiệm này.</p>
+        <div class="field" id="fieldCollection">
+          <label for="collectionSelect">Bộ sưu tập đích</label>
+          <select class="select" id="collectionSelect"></select>
+          <span class="field-error">Chưa có bộ sưu tập nào đang hoạt động.</span>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <span class="spacer"></span>
+        <button class="btn btn-light" data-close="addModal" type="button">Hủy</button>
+        <button class="btn btn-primary" id="confirmAddBtn" type="button">Thêm vào bộ sưu tập</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toastRegion"></div>
+  <script src="guide-experiences.js"></script>
+</body>
+</html>

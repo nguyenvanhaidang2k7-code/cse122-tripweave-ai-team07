@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWeave AI — Địa điểm</title>
+  <link rel="stylesheet" href="guide-locations.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP HEADER ===================== -->
+  <header class="topbar">
+    <a class="brand" href="../guide-dashboard/guide-dashboard.html" title="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4.5 20 19H4Z"/></svg>
+      TripWeave AI
+    </a>
+    <form class="searchbar" id="globalSearch" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="globalSearchInput" type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động..." autocomplete="off" />
+    </form>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="syncBtn" type="button" title="Đồng bộ dữ liệu (demo)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V6m0 0-3.5 3.5M12 6l3.5 3.5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      </button>
+      <button class="avatar" id="avatarBtn" type="button" title="Nguyễn Văn Minh — Hướng dẫn viên"></button>
+      <div class="avatar-menu" id="avatarMenu" hidden>
+        <div class="avatar-menu-head">
+          <span class="avatar-menu-name" id="avatarMenuName"></span>
+          <span class="avatar-menu-role" id="avatarMenuRole"></span>
+        </div>
+        <a href="../guide-profile/guide-profile.html">Hồ sơ của tôi</a>
+        <a href="../guide-itinerary-review/guide-itinerary-review.html">Lịch trình chờ duyệt</a>
+        <button id="logoutBtn" type="button">Đăng xuất (demo)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="Điều hướng hướng dẫn viên">
+        <a class="side-link" href="../guide-dashboard/guide-dashboard.html">Trang chủ</a>
+        <a class="side-link" href="../guide-curated/guide-curated.html">Curated</a>
+        <a class="side-link active" href="../guide-locations/guide-locations.html">Địa điểm</a>
+        <a class="side-link" href="../guide-itinerary-review/guide-itinerary-review.html">Review lịch trình</a>
+        <a class="side-link" href="../guide-experiences/guide-experiences.html">Trải nghiệm</a>
+        <a class="side-link" href="../guide-profile/guide-profile.html">Hồ sơ</a>
+      </nav>
+      <div class="side-spacer"></div>
+      <div class="side-divider"></div>
+      <div class="side-role">Hướng dẫn viên</div>
+    </aside>
+
+    <main class="content">
+      <div class="content-rule" aria-hidden="true"></div>
+
+      <!-- Form thông tin địa điểm -->
+      <section class="card form-card">
+        <h2 class="card-title">Thông tin địa điểm</h2>
+
+        <form id="locationForm" novalidate>
+          <div class="form-grid">
+            <div class="field" id="fieldName">
+              <label for="locName">Tên địa điểm</label>
+              <input class="input" id="locName" type="text" />
+              <span class="field-error">Tên địa điểm không được để trống.</span>
+            </div>
+            <div class="field">
+              <label for="locCategory">Danh mục</label>
+              <select class="select" id="locCategory">
+                <option>Văn hóa</option><option>Ẩm thực</option>
+                <option>Thiên nhiên</option><option>Giải trí</option>
+              </select>
+            </div>
+            <div class="field" id="fieldAddress">
+              <label for="locAddress">Địa chỉ</label>
+              <input class="input" id="locAddress" type="text" />
+              <span class="field-error">Địa chỉ không được để trống.</span>
+            </div>
+            <div class="field" id="fieldPrice">
+              <label for="locPrice">Giá dự kiến</label>
+              <input class="input" id="locPrice" type="text" placeholder="VD: 30.000đ/người" />
+              <span class="field-error">Giá cần chứa số và đơn vị (VD: 30.000đ/người).</span>
+            </div>
+          </div>
+
+          <div class="field" id="fieldDesc">
+            <label for="locDesc">Mô tả</label>
+            <textarea class="textarea" id="locDesc"></textarea>
+            <span class="field-error">Mô tả cần tối thiểu 10 ký tự.</span>
+          </div>
+
+          <!-- Khu vực bản đồ mô phỏng: click để thả ghim -->
+          <div class="map-box" id="mapBox" title="Nhấp để thả ghim vị trí">
+            <span class="map-label">Khu vực bản đồ / vị trí</span>
+            <span class="map-pin" id="mapPin" hidden>📍</span>
+            <span class="map-coords" id="mapCoords"></span>
+            <span class="map-hint">Nhấp vào bản đồ để thả ghim vị trí (demo)</span>
+          </div>
+
+          <div class="form-foot">
+            <button type="button" class="btn btn-light" id="resetBtn">Hoàn tác</button>
+            <button type="submit" class="btn btn-primary btn-lg" id="saveBtn">Lưu địa điểm</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toastRegion"></div>
+  <script src="guide-locations.js"></script>
+</body>
+</html>
