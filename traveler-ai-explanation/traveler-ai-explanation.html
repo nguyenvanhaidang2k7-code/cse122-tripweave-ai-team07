@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripWeave AI – Giải thích đề xuất</title>
+  <!-- CSS riêng của trang (bên trong đã @import common.css) -->
+  <link rel="stylesheet" href="traveler-ai-explanation.css">
+</head>
+<body>
+
+  <!-- ===================== TOPBAR (khung chung mọi trang) ===================== -->
+  <header class="topbar">
+    <a class="topbar__logo" href="../traveler-discover/traveler-discover.html">
+      <!-- Icon tam giác logo -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3 22 20 H2 Z"></path>
+      </svg>
+      TripWeave AI
+    </a>
+
+    <!-- Ô tìm kiếm chính giữa (bản demo: ô nhập trang trí) -->
+    <div class="topbar__search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động...">
+    </div>
+
+    <div class="topbar__actions">
+      <span class="topbar__bell">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+        </svg>
+      </span>
+      <span class="topbar__avatar"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <nav class="sidebar__nav">
+        <a class="nav-item" href="../traveler-discover/traveler-discover.html">Khám phá</a>
+        <a class="nav-item" href="../traveler-trip-planner/traveler-trip-planner.html">Chuyến đi</a>
+        <a class="nav-item is-active" href="../traveler-ai-itinerary/traveler-ai-itinerary.html">AI Itinerary</a>
+        <a class="nav-item" href="../traveler-saved/traveler-saved.html">Đã lưu</a>
+        <a class="nav-item" href="../traveler-notifications/traveler-notifications.html">Thông báo</a>
+        <a class="nav-item" href="../traveler-settings/traveler-settings.html">Cài đặt</a>
+      </nav>
+      <div class="sidebar__footer">Du khách</div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main">
+      <section class="panel explain">
+
+        <!-- Dòng thông báo lưu thành công (tag xanh) -->
+        <p class="explain__success">
+          <span class="tag-chip" id="successTag">Đã lưu lịch trình thành công</span>
+        </p>
+
+        <h1 class="explain__title">Vì sao AI đề xuất lịch trình này?</h1>
+        <p class="explain__subtitle">
+          Các lý do được tổng hợp từ thông tin bạn nhập và dữ liệu chuyến đi đã lưu.
+        </p>
+
+        <!-- Danh sách khối lý do: JS đọc savedTrip rồi render vào đây -->
+        <div class="explain__reasons" id="reasonList"></div>
+
+        <!-- Hàng nút cuối trang -->
+        <div class="explain__actions">
+          <a class="btn btn--primary" id="viewTripBtn"
+             href="../traveler-ai-itinerary/traveler-ai-itinerary.html#saved">Xem chuyến đi</a>
+          <a class="btn btn--soft" href="../traveler-discover/traveler-discover.html">Quay lại trang chủ</a>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- JS dùng chung: seed dữ liệu + avatar + chuông thông báo -->
+  <script src="../common.js"></script>
+  <!-- JS riêng của trang -->
+  <script src="traveler-ai-explanation.js"></script>
+</body>
+</html>

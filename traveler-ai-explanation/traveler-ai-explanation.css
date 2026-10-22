@@ -1,0 +1,65 @@
+/* =====================================================================
+   traveler-ai-explanation.css – CSS riêng màn hình "Giải thích đề xuất AI"
+   ===================================================================== */
+@import url("../common.css");
+
+/* Card nội dung giới hạn chiều rộng, căn giữa */
+.explain { max-width: 860px; margin: 0 auto; text-align: center; }
+
+.explain__success { margin-bottom: 20px; }
+
+/* Tag lưu thành công màu xanh lá để khác với tag xanh thường */
+#successTag {
+  background: #D1FAE5;
+  color: var(--color-success);
+}
+
+.explain__title    { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+.explain__subtitle { color: var(--color-text-sub); margin-bottom: 32px; }
+
+/* Danh sách lý do: mỗi lý do là 1 khối card nhỏ, chữ canh trái */
+.explain__reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.reason {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary); /* vạch xanh bên trái nhấn mạnh */
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+}
+
+.reason__label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.reason__text { font-size: 15px; line-height: 1.55; color: var(--color-text); }
+
+/* Hàng nút cuối trang: căn giữa */
+.explain__actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .explain__actions { flex-direction: column; }
+}
+
+/* ---------------- GIAO DIỆN MOBILE (<= 480px) ---------------- */
+@media (max-width: 480px) {
+  .explain__title    { font-size: 22px; }
+  .explain__subtitle { margin-bottom: 24px; }
+  .reason { padding: 14px 16px; }
+  .reason__text { font-size: 14px; }
+  .explain__actions .btn { width: 100%; }
+}

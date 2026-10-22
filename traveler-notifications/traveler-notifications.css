@@ -1,0 +1,95 @@
+/* =====================================================================
+   traveler-notifications.css – màn hình "Thông báo"
+   (file này import common.css trước để dùng chung biến màu + layout)
+   ===================================================================== */
+@import url("../common.css");
+
+/* ------------------- 1. TIÊU ĐỀ TRANG ------------------- */
+.page-head        { margin-bottom: 26px; }
+.page-head__title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+.page-head__sub   { font-size: 15px; color: var(--color-text-sub); }
+
+/* ------------------- 2. HÀNG TAB LỌC ------------------- */
+.notif-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+
+/* Tab thường: nền xanh nhạt + chữ xanh đậm (giống mockup) */
+.notif-tab {
+  padding: 12px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-blue-placeholder);
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .15s, color .15s;
+}
+.notif-tab:hover { background: var(--color-blue-tint); }
+
+/* Tab đang chọn: đảo thành nền xanh đậm chữ trắng */
+.notif-tab.is-active { background: var(--color-primary); color: #fff; }
+
+/* ------------------- 3. DANH SÁCH THÔNG BÁO ------------------- */
+.notif-list { display: flex; flex-direction: column; gap: 14px; }
+
+/* Mỗi thông báo: hàng ngang [ô icon vuông | tiêu đề + nội dung | thời gian | ›] */
+.notif-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 22px;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, transform .1s;
+}
+.notif-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, .08);
+  transform: translateX(2px);
+}
+
+/* Ô icon vuông 56px, màu theo trường "tint" của dữ liệu */
+.notif-item__icon          { width: 56px; height: 56px; border-radius: var(--radius-sm); flex-shrink: 0; }
+.notif-item__icon--blue    { background: #DBEAFE; }
+.notif-item__icon--green   { background: #D1FAE5; }
+.notif-item__icon--purple  { background: #EDE9FE; }
+.notif-item__icon--red     { background: #FEE2E2; }
+
+/* Phần chữ ở giữa (chiếm hết khoảng trống còn lại) */
+.notif-item__body  { flex: 1; }
+.notif-item__title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.notif-item__text  { font-size: 14px; color: var(--color-text-sub); }
+
+/* Thời gian + mũi tên › bên phải */
+.notif-item__time    { color: var(--color-text-sub); font-size: 13px; white-space: nowrap; }
+.notif-item__chevron { color: var(--color-text-sub); display: flex; }
+.notif-item__chevron svg { width: 18px; height: 18px; }
+
+/* ------------------- 4. KHUNG TRỐNG KHI LỌC KHÔNG CÓ KẾT QUẢ ------------------- */
+.notif-empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 50px 20px;
+  text-align: center;
+  color: var(--color-text-sub);
+  font-size: 15px;
+}
+
+/* ------------------- 5. RESPONSIVE ------------------- */
+@media (max-width: 720px) {
+  .notif-item { flex-wrap: wrap; }
+  .notif-item__time { order: 3; }
+}
+
+/* ---------------- GIAO DIỆN MOBILE (<= 600px) ---------------- */
+@media (max-width: 600px) {
+  .page-head__title { font-size: 24px; }
+  .notif-tabs { gap: 8px; margin-bottom: 18px; }
+  .notif-tab  { padding: 10px 16px; font-size: 13px; }
+  .notif-list { gap: 10px; }
+  .notif-item { padding: 14px; gap: 12px; }
+  .notif-item__icon  { width: 44px; height: 44px; }
+  .notif-item__title { font-size: 15px; }
+  .notif-item__text  { font-size: 13px; }
+  .notif-item__chevron { display: none; } /* bỏ mũi tên cho đỡ chật */
+}

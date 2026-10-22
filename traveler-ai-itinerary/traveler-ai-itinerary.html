@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripWeave AI – AI Itinerary</title>
+  <!-- CSS riêng của trang (bên trong đã @import common.css) -->
+  <link rel="stylesheet" href="traveler-ai-itinerary.css">
+</head>
+<body>
+
+  <!-- ===================== TOPBAR (khung chung mọi trang) ===================== -->
+  <header class="topbar">
+    <a class="topbar__logo" href="../traveler-discover/traveler-discover.html">
+      <!-- Icon tam giác logo -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3 22 20 H2 Z"></path>
+      </svg>
+      TripWeave AI
+    </a>
+
+    <!-- Ô tìm kiếm chính giữa (bản demo: ô nhập trang trí) -->
+    <div class="topbar__search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động...">
+    </div>
+
+    <div class="topbar__actions">
+      <span class="topbar__bell">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+        </svg>
+      </span>
+      <span class="topbar__avatar"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <nav class="sidebar__nav">
+        <a class="nav-item" href="../traveler-discover/traveler-discover.html">Khám phá</a>
+        <a class="nav-item" href="../traveler-trip-planner/traveler-trip-planner.html">Chuyến đi</a>
+        <a class="nav-item is-active" href="traveler-ai-itinerary.html">AI Itinerary</a>
+        <a class="nav-item" href="../traveler-saved/traveler-saved.html">Đã lưu</a>
+        <a class="nav-item" href="../traveler-notifications/traveler-notifications.html">Thông báo</a>
+        <a class="nav-item" href="../traveler-settings/traveler-settings.html">Cài đặt</a>
+      </nav>
+      <div class="sidebar__footer">Du khách</div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main">
+
+      <!-- Step Progress Bar: 4 bước của luồng AI.
+           3 bước đầu đã xong (is-done), bước "Kết quả" sáng lên khi có kết quả -->
+      <ol class="steps">
+        <li class="step is-done">Thông tin</li>
+        <li class="step is-done">Kiểm tra</li>
+        <li class="step is-done">Đang xử lý</li>
+        <li class="step" id="stepResult">Kết quả</li>
+      </ol>
+
+      <!-- STATE 1: AI ĐANG LOADING (progress chạy 0% -> 100%) -->
+      <section class="panel ai-loading" id="loadingState">
+        <h1 class="ai-loading__title">AI đang tạo lịch trình cho bạn...</h1>
+        <p class="ai-loading__subtitle">Dựa trên sở thích, ngân sách và thời gian bạn đã nhập.</p>
+
+        <div class="ai-loading__badge">AI</div>
+
+        <!-- Thanh progress: phần fill được JS tăng dần width -->
+        <div class="progress">
+          <div class="progress__fill" id="progressFill"></div>
+        </div>
+        <p class="progress__text" id="progressText">Đang xử lý… 0%</p>
+
+        <button class="btn btn--danger" id="cancelBtn">Hủy</button>
+      </section>
+
+      <!-- STATE 2: KẾT QUẢ LỊCH TRÌNH (mặc định ẩn, hiện khi progress đạt 100%) -->
+      <section class="result" id="resultState" hidden>
+        <!-- Card tiêu đề: tên lịch trình + thông tin số ngày / số thành phố -->
+        <header class="panel result__header">
+          <h2 id="resultTitle">Lịch trình gợi ý</h2>
+          <p class="result__meta" id="resultMeta"></p>
+        </header>
+
+        <div class="result__body">
+          <!-- Danh sách các ngày đi: JS đọc localStorage và render vào đây -->
+          <div class="result__days" id="dayList"></div>
+
+          <!-- Khung nút thao tác bên phải -->
+          <aside class="panel result__actions">
+            <h3>Thao tác</h3>
+            <button class="btn btn--primary btn--block" id="acceptBtn">Chấp nhận &amp; Lưu</button>
+            <button class="btn btn--soft btn--block" id="editBtn">Chỉnh sửa</button>
+            <button class="btn btn--soft btn--block" id="regenBtn">Tạo lại</button>
+            <button class="btn btn--danger btn--block" id="rejectBtn">Từ chối</button>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JS dùng chung: seed dữ liệu + avatar + chuông thông báo -->
+  <script src="../common.js"></script>
+  <!-- JS riêng của trang -->
+  <script src="traveler-ai-itinerary.js"></script>
+</body>
+</html>

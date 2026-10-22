@@ -1,0 +1,122 @@
+/* =====================================================================
+   traveler-saved.css – màn hình "Đã lưu" (grid 3 cột card)
+   (file này import common.css trước để dùng chung biến màu + layout)
+   ===================================================================== */
+@import url("../common.css");
+
+/* ------------------- 1. TIÊU ĐỀ TRANG ------------------- */
+.page-head        { margin-bottom: 30px; }
+.page-head__title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+.page-head__sub   { font-size: 15px; color: var(--color-text-sub); }
+
+/* ------------------- 2. LƯỚI 3 CỘT GIỐNG MOCKUP ------------------- */
+.saved-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+/* Khung ảnh của mỗi địa điểm */
+.saved-card__thumb {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+}
+
+/* Ảnh nằm gọn trong khung */
+.saved-card__thumb img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Chữ ở giữa ảnh */
+.saved-card__thumb-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Nút tim */
+.saved-card__unsave {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+/* Mỗi card: nền trắng ngà + viền + bo góc như card trang Khám phá */
+.saved-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px 20px;
+  transition: transform .15s, box-shadow .15s;
+}
+.saved-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(37, 99, 235, .10); }
+
+/* Nút tim "bỏ lưu" nằm góc phải ô ảnh */
+.saved-card__unsave {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--color-bg-card);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(15, 42, 74, .16);
+  transition: color .15s, background .15s;
+}
+.saved-card__unsave svg   { width: 17px; height: 17px; fill: currentColor; }
+.saved-card__unsave:hover { color: var(--color-danger); background: var(--color-danger-bg); }
+
+/* Tên + mô tả phụ + hàng rating • loại */
+.saved-card__title  { font-size: 17px; font-weight: 800; margin: 0 6px 8px; }
+.saved-card__sub    { font-size: 13px; color: var(--color-text-sub); margin: 0 6px 14px; }
+.saved-card__meta   { display: flex; align-items: center; gap: 8px; margin: 0 6px;
+                      font-size: 13px; font-weight: 600; color: var(--color-primary); }
+.saved-card__rating { display: inline-flex; align-items: center; gap: 5px; }
+.saved-card__rating svg { width: 14px; height: 14px; fill: currentColor; }
+.saved-card__dot    { color: var(--color-text-sub); }
+
+/* ------------------- 3. KHUNG TRỐNG KHI CHƯA LƯU GÌ ------------------- */
+.saved-empty {
+  grid-column: 1 / -1;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 60px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.saved-empty__text { color: var(--color-text-sub); font-size: 15px; }
+
+/* ------------------- 4. RESPONSIVE ------------------- */
+@media (max-width: 1280px) { .saved-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px)  { .saved-grid { grid-template-columns: 1fr; } }
+
+/* ---------------- GIAO DIỆN MOBILE (<= 600px) ---------------- */
+/* Lưới đã tự về 2 cột ở <=1280px và 1 cột ở <=720px (mục RESPONSIVE trên) */
+@media (max-width: 600px) {
+  .page-head { margin-bottom: 20px; }
+  .page-head__title { font-size: 24px; }
+  .page-head__sub   { font-size: 14px; }
+  .saved-grid { gap: 16px; }
+  .saved-card__thumb { height: 150px; font-size: 17px; }
+  .saved-empty { padding: 44px 16px; }
+}
