@@ -11,7 +11,6 @@
         cũng tự cập nhật khi mở lại.
      3. Select "Giao diện" (Sáng/Tối) -> lưu theme vào userProfile và
         bật ngay body[data-theme] để thấy hiệu ứng tức thì.
-     4. Nút "Đăng xuất" -> confirm -> quay về index.html.
      (Đổi mật khẩu / Liên kết tài khoản / Tùy chọn thông báo: chỉ alert
       demo vì bài tập chỉ làm frontend, không có backend.)
    ===================================================================== */
@@ -111,12 +110,6 @@ function init() {
   $('manageLinksBtn').addEventListener('click', () => alert('Tính năng demo: quản lý liên kết Google / Facebook.'));
   $('notifPrefsBtn').addEventListener('click', () => alert('Tính năng demo: thiết lập loại thông báo muốn nhận.'));
 
-  /* Đăng xuất: xác nhận rồi quay về trang mở đầu */
-  $('logoutBtn').addEventListener('click', () => {
-    if (confirm('Bạn muốn đăng xuất khỏi TripWeave AI?')) {
-      window.location.href = '../index.html';
-    }
-  });
 }
 
 /* ------------------- KHỞI ĐỘNG ------------------- */

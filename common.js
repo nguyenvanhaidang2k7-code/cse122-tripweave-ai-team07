@@ -92,67 +92,23 @@
     document.body.dataset.theme = profile.theme === 'dark' ? 'dark' : 'light';
   }
 
-/* ------------------- AVATAR: HIỆN THÔNG TIN TRANG WEB ------------------- */
+/* ------------------- AVATAR: ĐĂNG XUẤT ------------------- */
 function setupAvatar() {
-  const avatar = document.querySelector('.topbar__avatar');
+    const avatar = document.querySelector('.topbar__avatar');
+    if (!avatar) return;
 
-  if (!avatar) return;
-
-  // Cho biết avatar có thể bấm được
-  avatar.style.cursor = 'pointer';
-  avatar.title = 'Xem thông tin TripWeave AI';
-
-  // Tránh tạo bảng thông tin nhiều lần
-  let popup = document.querySelector('.profile-popup');
-
-  if (!popup) {
-    popup = document.createElement('div');
-    popup.className = 'profile-popup';
-
-    popup.innerHTML = `
-      <h3>TripWeave AI</h3>
-      <p><strong>Người dùng:</strong> <span class="profile-name"></span></p>
-      <p><strong>Email:</strong> <span class="profile-email"></span></p>
-      <p><strong>Vai trò:</strong> Du khách</p>
-      <p><strong>Chức năng:</strong> Khám phá địa điểm, lập lịch trình và lưu địa điểm yêu thích.</p>
-      <button type="button" class="profile-close">Đóng</button>
-    `;
-
-    document.body.appendChild(popup);
-  }
-
-  // Cập nhật thông tin theo hồ sơ đang lưu
-  function updatePopup() {
-    const profile = Object.assign(
-      {},
-      DEFAULT_PROFILE,
-      readJSON('userProfile') || {}
-    );
-
-    popup.querySelector('.profile-name').textContent = profile.name;
-    popup.querySelector('.profile-email').textContent = profile.email;
-  }
-
-  updatePopup();
-
-  // Bấm avatar để mở hoặc đóng bảng
-  avatar.addEventListener('click', function (event) {
-    event.stopPropagation();
-    updatePopup();
-    popup.classList.toggle('is-open');
-  });
-
-  // Bấm nút Đóng
-  popup.querySelector('.profile-close').addEventListener('click', function () {
-    popup.classList.remove('is-open');
-  });
-
-  // Bấm ra ngoài bảng thì đóng
-  document.addEventListener('click', function (event) {
-    if (!popup.contains(event.target) && !avatar.contains(event.target)) {
-      popup.classList.remove('is-open');
-    }
-  });
+    avatar.style.cursor = 'pointer';
+    avatar.title = 'Đăng xuất';
+    avatar.addEventListener('click', function (event) {
+      event.stopPropagation();
+      if (!window.confirm('Bạn muốn đăng xuất khỏi TripWeave AI?')) return;
+      try {
+        localStorage.removeItem('tw_session');
+      } catch (err) {
+        console.warn('Không thể xóa phiên đăng nhập:', err);
+      }
+      window.location.href = '../../SV_3_AdminPartners/login/index.html';
+    });
 }
 
   /* ------------------- 5. VIỆC 3: CHUÔNG THÔNG BÁO ------------------- */

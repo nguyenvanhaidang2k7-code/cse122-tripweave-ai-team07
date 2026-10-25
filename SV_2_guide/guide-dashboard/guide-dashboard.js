@@ -102,13 +102,11 @@ function syncHeaderProfile() {
   const p = STATE.profile;
   const btn = $('#avatarBtn');
   if (btn) {
-    btn.title = `${p.name} — ${p.role}`;
+    btn.title = 'Đăng xuất';
     // Viết tắt tên hiển thị trên nút avatar (vd: Nguyễn Văn Minh -> NM)
     const w = p.name.trim().split(/\s+/);
     btn.textContent = ((w[0] ? w[0][0] : '') + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
   }
-  if ($('#avatarMenuName')) $('#avatarMenuName').textContent = p.name;
-  if ($('#avatarMenuRole')) $('#avatarMenuRole').textContent = p.role;
 }
 
 function initHeader() {
@@ -121,14 +119,15 @@ function initHeader() {
     showToast(`Tìm kiếm demo: "${q}"`, 'info');
   });
   // Menu avatar
-  const menu = $('#avatarMenu');
   $('#avatarBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    menu.hidden = !menu.hidden;
+    if (!window.confirm('Bạn muốn đăng xuất khỏi TripWeave AI?')) return;
+    try {
+      localStorage.removeItem('tw_session');
+    } catch (err) {
+      console.warn('Không thể xóa phiên đăng nhập:', err);
+    }
+    window.location.href = '../../SV_3_AdminPartners/login/index.html';
   });
-  document.addEventListener('click', () => { menu.hidden = true; });
-  $('#logoutBtn').addEventListener('click', () =>
-    showToast('Demo: chức năng đăng xuất chưa nối backend.', 'info'));
   $('#syncBtn').addEventListener('click', () =>
     showToast('Đã đồng bộ dữ liệu hướng dẫn viên (demo).', 'success'));
 }
