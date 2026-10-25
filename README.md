@@ -58,8 +58,7 @@ https://www.canva.com/design/DAHX6UV0jDM/fmmHsKMUFF98uf8UI88SIg/edit
 
 7. Link video demo
 
-[Điền link video quay màn hình chạy trang web tại đây]
+https://www.youtube.com/watch?v=9FU-rcrL37o&list=PLQOZAIfjb-c0&index=25
 
 8. Link GitHub
 
-[Điền link GitHub repository của dự án tại đây]
