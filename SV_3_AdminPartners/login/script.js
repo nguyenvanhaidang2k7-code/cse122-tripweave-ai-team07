@@ -8,8 +8,8 @@
      vào trang quản trị ../admin-dashboard/index.html.
    - Đối tác địa phương: cùng quy tắc kiểm tra, CHUYỂN HƯỚNG
      vào trang quản lý của đối tác ../partner-overview/index.html.
-   - Khách du lịch / Hướng dẫn viên: hiện toast (pop-up nhẹ
-     nhàng) "Tính năng đang phát triển...".
+   - Khách du lịch / Hướng dẫn viên: chuyển đến trang đầu của
+     khu vực SV_1_Traveler / SV_2_guide tương ứng.
    ===================================================== */
 
 const $ = (s) => document.querySelector(s);
@@ -25,8 +25,8 @@ const rolePicker = $('#role-picker');
 // Vai trò có thuộc tính "trang" = được phép đăng nhập và chuyển hướng.
 const THONG_TIN_VAI_TRO = {
   admin: { ten: 'Quản trị viên', icon: '🛡️', trang: '../admin-dashboard/index.html' },
-  traveler: { ten: 'Khách du lịch', icon: '🧳' },
-  guide: { ten: 'Hướng dẫn viên', icon: '🧭' },
+  traveler: { ten: 'Khách du lịch', icon: '🧳', trang: '../../SV_1_Traveler/traveler-discover/traveler-discover.html' },
+  guide: { ten: 'Hướng dẫn viên', icon: '🧭', trang: '../../SV_2_guide/guide-dashboard/guide-dashboard.html' },
   partner: { ten: 'Đối tác địa phương', icon: '🏪', trang: '../partner-overview/index.html' }
 };
 
@@ -95,7 +95,7 @@ form.addEventListener('submit', (e) => {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Đăng nhập';
 
-    // --- Admin & Đối tác địa phương: đăng nhập + chuyển hướng vào khu vực tương ứng ---
+    // --- Đăng nhập + chuyển hướng vào khu vực tương ứng với vai trò ---
     const ttDangNhap = THONG_TIN_VAI_TRO[vaiTro];
     if (ttDangNhap && ttDangNhap.trang) {
       // Demo: email hợp lệ + mật khẩu >= 6 ký tự -> chấp nhận đăng nhập.
@@ -110,18 +110,10 @@ form.addEventListener('submit', (e) => {
       } catch (err) { /* bỏ qua nếu trình duyệt chặn LocalStorage */ }
 
       toast(ttDangNhap.icon + ' Đăng nhập thành công với vai trò ' + ttDangNhap.ten + '!', 'success');
-      // CHUYỂN HƯỚNG: admin -> trang quản trị; partner -> trang quản lý đối tác
+      // Chuyển đến trang đầu tiên của khu vực ứng với vai trò đã chọn.
       setTimeout(() => { window.location.href = ttDangNhap.trang; }, 700);
       return;
     }
-
-    // --- Khách du lịch / Hướng dẫn viên: tính năng đang phát triển ---
-    const tt = THONG_TIN_VAI_TRO[vaiTro];
-    toast(
-      tt.icon + ' Tính năng dành cho ' + tt.ten +
-      ' đang trong giai đoạn phát triển — hệ thống sẽ chuyển bạn đến trang tương ứng khi hoàn tất.',
-      'info'
-    );
   }, 1000);
 });
 

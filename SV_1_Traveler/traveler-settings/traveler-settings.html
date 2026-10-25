@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripWeave AI – Cài đặt</title>
+  <!-- CSS riêng của trang (bên trong đã @import common.css) -->
+  <link rel="stylesheet" href="traveler-settings.css">
+</head>
+<body>
+
+  <!-- ===================== TOPBAR (khung chung mọi trang) ===================== -->
+  <header class="topbar">
+    <a class="topbar__logo" href="../traveler-discover/traveler-discover.html">
+      <!-- Icon tam giác logo -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3 22 20 H2 Z"></path>
+      </svg>
+      TripWeave AI
+    </a>
+
+    <!-- Ô tìm kiếm chính giữa (bản demo: ô nhập trang trí) -->
+    <div class="topbar__search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input type="text" placeholder="Tìm kiếm địa điểm, thành phố, hoạt động...">
+    </div>
+
+    <div class="topbar__actions">
+      <!-- Chuông: common.js gắn sự kiện sang trang Thông báo + badge đếm số -->
+      <span class="topbar__bell">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+        </svg>
+      </span>
+      <!-- Avatar: common.js điền viết tắt tên từ key "userProfile" -->
+      <span class="topbar__avatar"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <nav class="sidebar__nav">
+        <a class="nav-item" href="../traveler-discover/traveler-discover.html">Khám phá</a>
+        <a class="nav-item" href="../traveler-trip-planner/traveler-trip-planner.html">Chuyến đi</a>
+        <a class="nav-item" href="../traveler-ai-itinerary/traveler-ai-itinerary.html">AI Itinerary</a>
+        <a class="nav-item" href="../traveler-saved/traveler-saved.html">Đã lưu</a>
+        <a class="nav-item" href="../traveler-notifications/traveler-notifications.html">Thông báo</a>
+        <a class="nav-item is-active" href="traveler-settings.html">Cài đặt</a>
+      </nav>
+      <div class="sidebar__footer">Du khách</div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main">
+      <section class="panel">
+        <h1 class="page-title">Cài đặt</h1>
+
+        <div class="settings-list">
+
+          <!-- 1. THÔNG TIN TÀI KHOẢN: avatar + tên + email + nút Chỉnh sửa
+               (tên/email do JS đọc từ key "userProfile" rồi điền vào) -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <div>
+                <h3 class="setting-row__head">Thông tin tài khoản</h3>
+                <div class="setting-account">
+                  <span class="setting-avatar" id="settingAvatar">NN</span>
+                  <div>
+                    <p class="setting-account__name" id="accountName">Nguyễn Thị Ngân</p>
+                    <p class="setting-account__email" id="accountEmail">nguyenthingan@email.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn--outline" id="editProfileBtn">Chỉnh sửa</button>
+          </div>
+
+          <!-- Form sửa thông tin (ẩn mặc định, bấm "Chỉnh sửa" mới hiện) -->
+          <form class="setting-edit" id="editForm" hidden>
+            <div class="setting-edit__fields">
+              <label class="form-label">Họ và tên
+                <input class="form-input" id="editName" type="text" placeholder="VD: Nguyễn Thị Ngân" required>
+              </label>
+              <label class="form-label">Email
+                <input class="form-input" id="editEmail" type="email" placeholder="VD: nguyenthingan@email.com" required>
+              </label>
+            </div>
+            <div class="setting-edit__actions">
+              <button type="submit" class="btn btn--primary">Lưu thay đổi</button>
+              <button type="button" class="btn btn--soft" id="cancelEditBtn">Hủy</button>
+            </div>
+          </form>
+
+          <!-- 2. ĐỔI MẬT KHẨU (demo: alert vì không có backend) -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <span class="setting-icon"></span>
+              <div>
+                <h3 class="setting-row__title">Đổi mật khẩu</h3>
+                <p class="setting-row__sub">Bảo mật tài khoản của bạn bằng mật khẩu mạnh.</p>
+              </div>
+            </div>
+            <button class="btn btn--outline" id="changePasswordBtn">Đổi mật khẩu</button>
+          </div>
+
+          <!-- 3. LIÊN KẾT TÀI KHOẢN (demo) -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <span class="setting-icon"></span>
+              <div>
+                <h3 class="setting-row__title">Liên kết tài khoản</h3>
+                <p class="setting-row__sub">Kết nối với Google, Facebook để đăng nhập nhanh.</p>
+              </div>
+            </div>
+            <button class="btn btn--outline" id="manageLinksBtn">Quản lý</button>
+          </div>
+
+          <!-- 4. TÙY CHỌN THÔNG BÁO (demo) -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <span class="setting-icon"></span>
+              <div>
+                <h3 class="setting-row__title">Tùy chọn thông báo</h3>
+                <p class="setting-row__sub">Chọn loại thông báo bạn muốn nhận từ TripWeave AI.</p>
+              </div>
+            </div>
+            <button class="btn btn--outline" id="notifPrefsBtn">Thiết lập</button>
+          </div>
+
+          <!-- 5. GIAO DIỆN: select Sáng/Tối -> lưu vào userProfile.theme,
+               common.js đọc key này ở MỌI TRANG để bật theme tối -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <span class="setting-icon"></span>
+              <div>
+                <h3 class="setting-row__title">Giao diện</h3>
+                <p class="setting-row__sub">Chọn giao diện sáng hoặc tối cho toàn bộ trang.</p>
+              </div>
+            </div>
+            <select class="select" id="themeSelect">
+              <option value="light">Sáng</option>
+              <option value="dark">Tối</option>
+            </select>
+          </div>
+
+          <!-- 6. ĐĂNG XUẤT: xác nhận rồi quay về index.html -->
+          <div class="setting-row">
+            <div class="setting-row__left">
+              <h3 class="setting-row__title setting-row__title--danger">Đăng xuất tài khoản</h3>
+            </div>
+            <button class="btn btn--outline-danger" id="logoutBtn">Đăng xuất</button>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JS dùng chung: seed dữ liệu + avatar + chuông thông báo -->
+  <script src="../../common.js"></script>
+  <!-- JS riêng của trang -->
+  <script src="traveler-settings.js"></script>
+</body>
+</html>

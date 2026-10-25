@@ -1,0 +1,53 @@
+/* =====================================================================
+   traveler-trip-planner.css – CSS riêng màn hình "Lập kế hoạch chuyến đi"
+   ===================================================================== */
+@import url("../../common.css");
+
+/* Card form giới hạn chiều rộng, căn giữa */
+.planner { max-width: 1080px; margin: 0 auto; }
+
+.planner__title    { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.planner__subtitle { color: var(--color-text-sub); margin-bottom: 28px; }
+
+/* 2 cột: form trái + ô ảnh giả phải (300px giống mockup) */
+.planner__cols {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+.planner__img { height: 100%; min-height: 320px; }
+
+/* Hàng chứa 2 ô ngày (bắt đầu / kết thúc) */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Hàng chip: tự xuống dòng khi hết chỗ */
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Ô ghi chú: cho phép kéo giãn theo chiều dọc */
+.planner__note { resize: vertical; min-height: 88px; }
+
+/* Dòng gợi ý + dòng báo lỗi dưới nút */
+.planner__hint  { text-align: center; margin-top: 16px; }
+.planner__error {
+  text-align: center;
+  margin-top: 12px;
+  color: var(--color-danger);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Responsive cơ bản: màn hẹp thì gộp về 1 cột */
+@media (max-width: 960px) {
+  .planner__cols { grid-template-columns: 1fr; }
+  .form-row      { grid-template-columns: 1fr; }
+}
+
+/* ---------------- GIAO DIỆN MOBILE (<= 600px) ---------------- */
+@media (max-width: 600px) {
+  .planner__title    { font-size: 22px; }
+  .planner__subtitle { margin-bottom: 20px; }
+  .planner__cols { gap: 20px; }
+  .planner__img  { min-height: 200px; }
+  .chip-row { gap: 8px; }
+}

@@ -1,0 +1,123 @@
+/* =====================================================================
+   traveler-settings.css – màn hình "Cài đặt" (danh sách hàng cấu hình)
+   (file này import common.css trước để dùng chung biến màu + layout)
+   ===================================================================== */
+@import url("../../common.css");
+
+/* ------------------- 1. TIÊU ĐỀ TRANG ------------------- */
+.page-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; }
+
+/* ------------------- 2. DANH SÁCH CÁC HÀNG CÀI ĐẶT ------------------- */
+.settings-list { display: flex; flex-direction: column; gap: 16px; }
+
+/* Mỗi hàng: [nội dung trái] ......... [nút phải] */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+}
+.setting-row__left  { display: flex; align-items: center; gap: 18px; }
+.setting-row__title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.setting-row__sub   { font-size: 13.5px; color: var(--color-text-sub); }
+
+/* Hàng "Thông tin tài khoản": heading nằm trên, avatar + tên/email dưới */
+.setting-row__head { font-size: 16px; font-weight: 800; margin-bottom: 16px; }
+.setting-account   { display: flex; align-items: center; gap: 16px; }
+.setting-account__name  { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.setting-account__email { font-size: 13px; color: var(--color-text-sub); }
+
+/* Ô avatar xanh chứa chữ viết tắt (JS điền từ "userProfile") */
+.setting-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* Ô icon vuông xanh nhạt cho các hàng cấu hình (giống mockup) */
+.setting-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--color-blue-placeholder);
+  flex-shrink: 0;
+}
+
+/* ------------------- 3. NÚT VIỀN XANH / VIỀN ĐỎ ------------------- */
+.btn--outline {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 12px 26px;
+}
+.btn--outline:hover { background: var(--color-blue-soft); }
+
+.btn--outline-danger {
+  background: transparent;
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+  padding: 12px 26px;
+}
+.btn--outline-danger:hover { background: var(--color-danger-bg); }
+
+.setting-row__title--danger { color: var(--color-danger); margin: 0; }
+
+/* ------------------- 4. SELECT GIAO DIỆN (SÁNG / TỐI) ------------------- */
+.select {
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--color-primary);
+  background: var(--color-bg-card);
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ------------------- 5. FORM SỬA THÔNG TIN (ẨN/HIỆN) ------------------- */
+.setting-edit {
+  border: 1px dashed var(--color-primary);
+  background: var(--color-blue-soft);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.setting-edit__fields  { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.setting-edit__actions { display: flex; gap: 12px; }
+
+/* ------------------- 6. RESPONSIVE ------------------- */
+@media (max-width: 900px) {
+  .setting-row          { flex-direction: column; align-items: flex-start; }
+  .setting-edit__fields { grid-template-columns: 1fr; }
+}
+
+/* ---------------- GIAO DIỆN MOBILE (<= 600px) ---------------- */
+/* Ở <=900px các hàng đã tự xếp dọc (mục RESPONSIVE trên);
+   phần này phóng to điều khiển cho dễ chạm bằng một tay */
+@media (max-width: 600px) {
+  .page-title { font-size: 24px; margin-bottom: 24px; }
+  .settings-list { gap: 12px; }
+  .setting-row { padding: 16px; gap: 14px; }
+  .setting-row > .btn    { width: 100%; }  /* nút tràn hết hàng, dễ bấm */
+  .setting-row > .select { width: 100%; }
+  .setting-avatar, .setting-icon { width: 44px; height: 44px; }
+  .setting-edit { padding: 16px; gap: 14px; }
+  .setting-edit__actions { flex-direction: column; }
+  .setting-edit__actions .btn { width: 100%; }
+}
