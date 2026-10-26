@@ -83,6 +83,7 @@ Lưu ý: Tính năng tạo lịch trình AI trong phiên bản này là mô ph�
 Dự án sử dụng HTML, CSS và JavaScript thuần, không yêu cầu cài đặt framework để chạy bản demo.
 
 6. Link Figma / thiết kế
+
 https://www.canva.com/design/DAHX6UV0jDM/fmmHsKMUFF98uf8UI88SIg/edit
 
 MOBILE: https://www.canva.com/design/DAHYAPoJFks/5JXfWA-SVRJV-oFeRgjoYQ/edit
