@@ -1,421 +1,141 @@
 /* =====================================================================
-   common.css  –  FILE CSS DÙNG CHUNG CHO MỌI MÀN HÌNH (TripWeave AI)
-   ---------------------------------------------------------------------
-   Nội dung:
-     1. CSS Variables   : bảng màu chuẩn thiết kế (giống mockup Canva)
-     2. Reset CSS       : xóa margin/padding mặc định của trình duyệt
-     3. Khung giao diện : Topbar + Sidebar + vùng Main (trang nào cũng có)
-     4. Component chung : nút bấm (.btn), tag (.tag-chip), ô ảnh giả, form
-   Cách dùng: mỗi file CSS riêng của trang khai báo @import url("../common.css");
+   traveler-trip-planner.css – CSS riêng màn hình "Lập kế hoạch chuyến đi"
    ===================================================================== */
+@import url("../common.css");
 
-/* ------------------------- 1. CSS VARIABLES ------------------------- */
-:root {
-  /* Màu chính */
-  --color-primary:      #2563EB;  /* Xanh dương rực rỡ: nút chính, menu active */
-  --color-primary-dark: #1D4ED8;  /* Xanh đậm hơn khi hover nút chính */
-  --color-blue-tint:    #DBEAFE;  /* Xanh nhạt đậm: nền tag thông tin */
-  --color-blue-soft:    #EFF6FF;  /* Xanh rất nhạt: hiệu ứng hover */
-  --color-blue-placeholder: #E3EDFC; /* Nền xanh cho ô ảnh giả / tag */
+/* Card form giới hạn chiều rộng, căn giữa */
+.planner { max-width: 1080px; margin: 0 auto; }
 
-  /* Màu nền & viền */
-  --color-bg-page:   #EEF2F7;     /* Nền toàn trang */
-  --color-bg-card:   #F8FAFC;     /* Nền card / topbar / sidebar */
-  --color-bg-soft:   #F1F5F9;     /* Nền xám nhạt (tag chưa chọn) */
-  --color-border:    #E2E8F0;     /* Viền mảnh */
+.planner__title    { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.planner__subtitle { color: var(--color-text-sub); margin-bottom: 28px; }
 
-  /* Màu chữ */
-  --color-text:     #1E293B;      /* Chữ chính */
-  --color-text-sub: #64748B;      /* Chữ phụ */
-
-  /* Màu ngữ nghĩa */
-  --color-danger-bg: #FEE2E2;     /* Nền đỏ nhạt (nút Hủy / Từ chối) */
-  --color-danger:    #DC2626;     /* Chữ đỏ */
-  --color-success:   #059669;     /* Xanh lá (thông báo thành công) */
-  --color-banner:    #0F2A4A;     /* Xanh đen của banner trang Khám phá */
-
-  /* Bo góc & font chữ */
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --font-main: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-}
-
-/* ---------------------------- 2. RESET CSS --------------------------- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: var(--font-main);
-  background: var(--color-bg-page);
-  color: var(--color-text);
-  padding: 24px 40px 40px;
-}
-
-a      { color: inherit; text-decoration: none; }
-button { font-family: inherit; border: none; cursor: pointer; background: none; }
-input  { font-family: inherit; }
-
-/* Ẩn phần tử bằng thuộc tính hidden (chặn các class display ghi đè) */
-[hidden] { display: none !important; }
-
-/* ---------------------- 3. KHUNG GIAO DIỆN CHUNG ---------------------- */
-/* 3.1. Topbar: logo trái - ô tìm kiếm giữa - chuông + avatar phải */
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 14px 24px;
-}
-
-.topbar__logo {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 20px; font-weight: 800; white-space: nowrap;
-}
-.topbar__logo svg { width: 22px; height: 20px; }
-
-/* Ô tìm kiếm chính giữa (dạng pill bo tròn) */
-.topbar__search {
-  flex: 1;
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex; align-items: center; gap: 10px;
-  background: var(--color-bg-soft);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  padding: 10px 18px;
-  color: var(--color-text-sub);
-}
-.topbar__search input {
-  flex: 1; border: none; outline: none; background: transparent;
-  font-size: 14px; color: var(--color-text);
-}
-.topbar__search input::placeholder { color: var(--color-text-sub); }
-
-.topbar__actions { display: flex; align-items: center; gap: 18px; margin-left: auto; }
-.topbar__bell    { display: flex; color: var(--color-text-sub); }
-.topbar__avatar  { width: 40px; height: 40px; border-radius: 10px; background: var(--color-primary); }
-
-/* 3.2. Layout: Sidebar trái + Main phải, kẻ xanh ngang dưới topbar */
-.layout {
+/* 2 cột: form trái + ô ảnh phải (300px giống mockup) */
+.planner__cols {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 3px solid var(--color-primary); /* đường kẻ xanh giống mockup */
-  align-items: stretch;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  margin-bottom: 28px;
 }
 
-.sidebar {
-  background: var(--color-bg-card);
+
+/* Khu vực tải ảnh chuyến đi */
+.planner__img {
+  align-self: start;
+  min-width: 0;
+  padding: 20px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 16px;
+  background: var(--color-bg-card);
+}
+
+.planner__img-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.planner__img-text {
+  color: var(--color-text-sub);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.upload-area {
+  min-height: 190px;
+  padding: 20px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--color-primary);
+  background: var(--color-bg);
 }
 
-.sidebar__nav { display: flex; flex-direction: column; gap: 14px; }
+.upload-area:hover {
+  border-color: var(--color-primary);
+}
 
-.nav-item {
+.upload-icon {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.upload-area small {
+  color: var(--color-text-sub);
+  font-size: 12px;
+}
+
+.image-preview-box {
+  margin-top: 16px;
+}
+
+.image-preview-box img {
   display: block;
-  padding: 15px 18px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-text-sub);
-  transition: background .15s, color .15s;
-}
-.nav-item:hover     { background: var(--color-blue-soft); color: var(--color-primary); }
-.nav-item.is-active { background: var(--color-primary); color: #fff; font-weight: 700; }
-
-/* Vai trò người dùng hiển thị dưới cùng sidebar */
-.sidebar__footer {
-  margin-top: auto;
-  padding: 18px 18px 8px;
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text-sub);
-  font-size: 14px;
-}
-
-/* 3.3. Panel: card chứa nội dung chính, bo góc lớn 16px */
-.panel {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-}
-
-/* ------------------------ 4. COMPONENT CHUNG ------------------------- */
-/* 4.1. Nút bấm */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 13px 22px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 700;
-  transition: background .15s, transform .05s;
-}
-.btn:active         { transform: scale(.98); }
-.btn--primary       { background: var(--color-primary); color: #fff; }
-.btn--primary:hover { background: var(--color-primary-dark); }
-.btn--soft          { background: var(--color-blue-tint); color: var(--color-primary); }
-.btn--soft:hover    { background: #C7DBFA; }
-.btn--danger        { background: var(--color-danger-bg); color: var(--color-danger); }
-.btn--danger:hover  { background: #FECACA; }
-.btn--block         { width: 100%; }
-.btn:disabled       { opacity: .8; cursor: default; }
-
-/* 4.2. Tag / chip (mặc định là tag thông tin màu xanh nhạt) */
-.tag-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 20px;
-  border-radius: var(--radius-sm);
-  background: var(--color-blue-placeholder);
-  color: var(--color-primary);
-  font-size: 14px;
-  font-weight: 700;
-}
-/* Tag bấm được (chọn điểm đến / sở thích): chưa chọn = xám nhạt */
-.tag-chip--selectable { background: var(--color-bg-soft); color: var(--color-text-sub); }
-.tag-chip--selectable.is-selected {
-  background: var(--color-blue-placeholder);
-  color: var(--color-primary);
-}
-
-/* 4.3. Ô ảnh giả (placeholder) */
-.img-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-blue-placeholder);
-  color: var(--color-primary);
-  font-weight: 700;
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
   border-radius: var(--radius-md);
 }
 
-/* 4.4. Form nhập liệu */
-.form-group { margin-bottom: 22px; }
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text-sub);
-}
-.form-input {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 15px;
-  color: var(--color-text);
-  background: #fff;
+.remove-image-btn {
+  margin-top: 10px;
+  padding: 8px 14px;
   border: 1px solid var(--color-border);
-  border-radius: 10px;
-  outline: none;
-}
-.form-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-blue-soft);
-}
-
-/* ------------- 5. BỔ SUNG CHO common.js (TRANG NÀO CŨNG DÙNG) ------------- */
-/* 5.1. Avatar chữ: common.js điền viết tắt tên ("NT") vào giữa ô xanh */
-.topbar__avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: .5px;
-  user-select: none;
-}
-
-/* 5.2. Chuông: bấm được (sang trang Thông báo) + badge đỏ đếm số lượng */
-.topbar__bell { position: relative; cursor: pointer; }
-.topbar__badge {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  border-radius: 999px;
-  background: var(--color-danger);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 5.3. Theme tối: màn Cài đặt -> Giao diện lưu theme vào userProfile,
-   common.js bật thuộc tính body[data-theme="dark"] => đảo biến màu */
-body[data-theme="dark"] {
-  --color-bg-page:   #0B1220;
-  --color-bg-card:   #101A2C;
-  --color-bg-soft:   #1A2540;
-  --color-border:    #26334E;
-  --color-text:      #E2E8F0;
-  --color-text-sub:  #94A3B8;
-  --color-blue-soft: rgba(37, 99, 235, .18);
-  --color-blue-tint: rgba(37, 99, 235, .35);
-  --color-blue-placeholder: rgba(37, 99, 235, .28);
-  --color-danger-bg: rgba(220, 38, 38, .18);
-}
-body[data-theme="dark"] .form-input { background: var(--color-bg-soft); color: var(--color-text); }
-
-/* ------------- 6. GIAO DIỆN MOBILE (bottom nav + breakpoint nhỏ) ------------- */
-/* 6.1. Thanh điều hướng dưới đáy màn hình (bottom tab bar) do common.js tự
-   chèn vào cuối <body> của MỌI trang (thẻ <nav class="mobile-nav">):
-   - Desktop (màn rộng > 900px): display:none nên không chiếm chỗ.
-   - Mobile/tablet (<= 900px): hiện lên thay cho sidebar bị ẩn; 5 mục chia
-     đều chiều rộng, icon trên / chữ dưới, trang đang mở tô xanh (is-active).
-   Màu lấy từ biến CSS nên tự tương thích cả theme tối. */
-.mobile-nav { display: none; }
-
-/* 6.2. TABLET / MOBILE (<= 900px): ẩn sidebar, thu gọn khoảng cách,
-   chừa chỗ đáy màn hình cho bottom nav */
-@media (max-width: 900px) {
-  /* dòng padding thứ 2 dùng env() cho iPhone tai thỏ, dòng 1 là fallback */
-  body {
-    padding: 16px 14px 84px;
-    padding: 16px 14px calc(84px + env(safe-area-inset-bottom, 0px));
-  }
-  .layout { grid-template-columns: 1fr; gap: 16px; margin-top: 16px; padding-top: 16px; }
-  .sidebar { display: none; }              /* menu chuyển xuống bottom nav */
-  .topbar { padding: 12px 14px; gap: 12px; }
-  .topbar__search { display: none; }       /* ô tìm kiếm trang trí, ẩn cho đỡ chật */
-  .panel  { padding: 20px 16px; }
-
-  /* Bottom nav: dính đáy màn hình, nổi trên mọi nội dung */
-  .mobile-nav {
-    display: flex;
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    z-index: 999;
-    background: var(--color-bg-card);
-    border-top: 1px solid var(--color-border);
-    box-shadow: 0 -4px 16px rgba(15, 42, 74, .06);
-    padding: 6px 4px;
-    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
-  }
-  .mobile-nav__item {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    padding: 6px 2px;
-    color: var(--color-text-sub);
-    font-size: 10.5px;
-    font-weight: 700;
-    text-align: center;
-  }
-  .mobile-nav__item svg { width: 22px; height: 22px; }
-  .mobile-nav__item.is-active { color: var(--color-primary); }
-
-  /* Badge đỏ đếm thông báo trên mục "Thông báo" (giống badge chuông topbar) */
-  .mobile-nav__badge {
-    position: absolute;
-    top: 0;
-    left: calc(50% + 6px);
-    min-width: 16px;
-    height: 16px;
-    padding: 0 4px;
-    border-radius: 999px;
-    background: var(--color-danger);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-/* 6.3. ĐIỆN THOẠI NHỎ (<= 480px): thu gọn thêm topbar + nút dễ chạm */
-@media (max-width: 480px) {
-  body {
-    padding: 12px 10px 80px;
-    padding: 12px 10px calc(80px + env(safe-area-inset-bottom, 0px));
-  }
-  .topbar { padding: 10px 12px; gap: 10px; }
-  .topbar__logo { font-size: 16px; gap: 6px; }
-  .topbar__logo svg { width: 18px; height: 16px; }
-  .topbar__bell svg { width: 18px; height: 18px; }
-  .topbar__actions { gap: 12px; }
-  .topbar__avatar { width: 34px; height: 34px; font-size: 12px; }
-  .panel  { padding: 16px 12px; border-radius: var(--radius-md); }
-  .btn    { padding: 12px 16px; font-size: 14px; }
-  .tag-chip { padding: 9px 14px; font-size: 13px; }
-}
-
-/* ------------------- BẢNG THÔNG TIN KHI BẤM AVATAR ------------------- */
-.profile-popup {
-  display: none;
-  position: fixed;
-  top: 90px;
-  right: 30px;
-  width: 320px;
-  padding: 22px;
-  background: var(--color-bg-card, #ffffff);
-  color: var(--color-text, #142b46);
-  border: 1px solid var(--color-border, #dce5ef);
-  border-radius: 14px;
-  box-shadow: 0 8px 28px rgba(15, 42, 74, 0.18);
-  z-index: 9999;
-}
-
-.profile-popup.is-open {
-  display: block;
-}
-
-.profile-popup h3 {
-  margin: 0 0 16px;
-  font-size: 20px;
-  color: var(--color-primary, #2563eb);
-}
-
-.profile-popup p {
-  margin: 12px 0;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.profile-popup .profile-close {
-  display: block;
-  margin-top: 18px;
-  margin-left: auto;
-  padding: 9px 20px;
-  border: none;
-  border-radius: 8px;
-  background: var(--color-primary, #2563eb);
-  color: white;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
   cursor: pointer;
 }
 
-.profile-popup .profile-close:hover {
-  opacity: 0.85;
+@media (max-width: 960px) {
+  .planner__img {
+    width: 100%;
+  }
+
+  .upload-area {
+    min-height: 150px;
+  }
 }
 
-/* Điều chỉnh bảng trên điện thoại */
+/* Hàng chứa 2 ô ngày (bắt đầu / kết thúc) */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/*------ Hàng chip: tự xuống dòng khi hết chỗ----------- */
+.chip-row { 
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; 
+}
+
+/* Ô ghi chú: cho phép kéo giãn theo chiều dọc */
+.planner__note { resize: vertical; min-height: 88px; }
+
+/* Dòng gợi ý + dòng báo lỗi dưới nút*/
+.planner__hint  { text-align: center; margin-top: 16px; }
+.planner__error {
+  text-align: center;
+  margin-top: 12px;
+  color: var(--color-danger);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* ------Responsive cơ bản: màn hẹp thì gộp về 1 cột-------- */
+@media (max-width: 960px) {
+  .planner__cols { grid-template-columns: 1fr; }
+  .form-row      { grid-template-columns: 1fr; }
+}
+
+/* ---------------- GIAO DIỆN MOBILE (<= 600px) ---------------- */
 @media (max-width: 600px) {
-  .profile-popup {
-    top: 75px;
-    right: 12px;
-    left: 12px;
-    width: auto;
-    box-sizing: border-box;
-  }
+  .planner__title    { font-size: 22px; }
+  .planner__subtitle { margin-bottom: 20px; }
+  .planner__cols { gap: 20px; }
+  .planner__img  { min-height: 200px; }
+  .chip-row { gap: 8px; }
 }
