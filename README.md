@@ -70,6 +70,7 @@ Phần Du khách được xây dựng để người dùng có thể thực hi�
 Lưu ý: Tính năng tạo lịch trình AI trong phiên bản này là mô phỏng bằng JavaScript và dữ liệu/quy tắc có sẵn ở phía trình duyệt; không phải lời gọi đến mô hình AI hoặc backend thật.
 
 5. Công nghệ sử dụng
+
 | Công nghệ / công cụ | Vai trò |
 |---|---|
 | **HTML5** | Xây dựng cấu trúc và nội dung các trang. |
