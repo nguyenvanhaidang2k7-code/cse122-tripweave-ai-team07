@@ -21,7 +21,7 @@ const state = { destinations: new Set(), budget: '', interests: new Set() };
 const $ = (id) => document.getElementById(id);
 
 /* ------------------- 2. RENDER CHIP & GẮN SỰ KIỆN ------------------- */
-/* single = true: kiểu chọn 1 (ngân sách); false: chọn nhiều (điểm đến, sở thích) */
+/* Tạo các nút lựa chọn và xử lý khi bấm */
 function renderChips(containerId, options, selected, single) {
   const box = $(containerId);
   box.innerHTML = options.map((opt) => {
@@ -54,13 +54,70 @@ function showError(msg) {
   el.hidden = false;
 }
 
+/* Chọn, xem trước và xóa ảnh chuyến đi */
+function initImageUpload() {
+  const input = $('tripImage');
+  const previewBox = $('imagePreviewBox');
+  const preview = $('imagePreview');
+  const removeBtn = $('removeImageBtn');
+
+  // Đọc ảnh đã lưu trước đó
+  const oldTrip = JSON.parse(
+    localStorage.getItem('currentTrip') || 'null'
+  );
+
+  if (oldTrip && oldTrip.image) {
+    tripImageData = oldTrip.image;
+    preview.src = tripImageData;
+    previewBox.hidden = false;
+  }
+
+  // Khi người dùng chọn ảnh
+  input.addEventListener('change', function () {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      alert('Vui lòng chọn ảnh JPG, PNG hoặc WEBP.');
+      this.value = '';
+      return;
+    }
+
+    // Giới hạn ảnh 2 MB để tránh đầy bộ nhớ
+    if (file.size > 2 * 1024 * 1024) {
+      alert('Ảnh quá lớn. Vui lòng chọn ảnh không quá 2 MB.');
+      this.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      tripImageData = e.target.result;
+      preview.src = tripImageData;
+      previewBox.hidden = false;
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  // Xóa ảnh đã chọn
+  removeBtn.addEventListener('click', function () {
+    tripImageData = '';
+    input.value = '';
+    preview.removeAttribute('src');
+    previewBox.hidden = true;
+  });
+}
+
 function createTrip() {
   // Kiểm tra: phải chọn ít nhất 1 điểm đến
   if (state.destinations.size === 0) {
     showError('Vui lòng chọn ít nhất 1 điểm đến.');
     return;
   }
-  // Kiểm tra: ngày kết thúc không được trước ngày bắt đầu
+  // Kiểm tra ngày bắt đầu và ngày kết thúc 
   const start = $('startDate').value;
   const end   = $('endDate').value;
   if (start && end && new Date(end) < new Date(start)) {
@@ -70,16 +127,17 @@ function createTrip() {
 
   $('errorMsg').hidden = true;
 
-  // Gom dữ liệu form thành object trip
+  // Gom thông tin chuyến đi
   const trip = {
-    name:         $('tripName').value.trim() || 'Chuyến đi của tôi',
-    destinations: Array.from(state.destinations),
-    startDate:    start,
-    endDate:      end,
-    budget:       state.budget || 'Chưa xác định',
-    interests:    Array.from(state.interests),
-    note:         $('tripNote').value.trim()
-  };
+  name:         $('tripName').value.trim() || 'Chuyến đi của tôi',
+  destinations: Array.from(state.destinations),
+  startDate:    start,
+  endDate:      end,
+  budget:       state.budget || 'Chưa xác định',
+  interests:    Array.from(state.interests),
+  note:         $('tripNote').value.trim(),
+  image:        tripImageData
+};
 
   // Lưu vào localStorage rồi chuyển sang trang AI Itinerary
   localStorage.setItem('currentTrip', JSON.stringify(trip));
@@ -118,4 +176,5 @@ function init() {
   $('createBtn').addEventListener('click', createTrip);
 }
 
+initImageUpload();
 init();
