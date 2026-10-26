@@ -8,6 +8,9 @@ const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const clone = (obj) => JSON.parse(JSON.stringify(obj));
 const wait  = (ms) => new Promise((res) => setTimeout(res, ms));
+const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[char]));
 
 function showToast(message, type = 'success') {
   const region = $('#toastRegion');
@@ -67,6 +70,31 @@ function saveState() {
 }
 let STATE = loadState();
 const DEMO = new URLSearchParams(location.search).get('demo');
+
+function syncTravelerTrips() {
+  let travelerTrips = [];
+  try {
+    const storedTrips = JSON.parse(localStorage.getItem('travelerTrips') || '[]');
+    if (Array.isArray(storedTrips)) travelerTrips = storedTrips;
+  } catch (err) {
+    console.warn('Không đọc được danh sách chuyến đi của du khách:', err);
+  }
+
+  const knownIds = new Set(STATE.itineraries.map((trip) => trip.id));
+  const newTrips = travelerTrips
+    .filter((trip) => trip && trip.id && Array.isArray(trip.schedule) && !knownIds.has(trip.id))
+    .map((trip) => ({
+      ...trip,
+      comments: trip.comments || {},
+      status: trip.status || 'pending',
+      rejectReason: trip.rejectReason || ''
+    }));
+
+  if (newTrips.length) {
+    STATE.itineraries.unshift(...newTrips);
+    saveState();
+  }
+}
 
 function pushActivity(text) {
   STATE.activities.unshift(text);
@@ -156,9 +184,9 @@ function renderList() {
     <article class="card row-card">
       <div class="thumb thumb-md">Trip</div>
       <div class="row-info">
-        <h3 class="row-title">${t.title}</h3>
+        <h3 class="row-title">${escapeHTML(t.title)}</h3>
         <p class="row-meta">${t.days} ngày • ${t.places} địa điểm • ${t.status === 'pending' ? 'Chờ review' : (t.status === 'approved' ? 'Đã review' : 'Bị từ chối')}</p>
-        ${t.status === 'rejected' && t.rejectReason ? `<p class="reject-note">Lý do: ${t.rejectReason}</p>` : ''}
+        ${t.status === 'rejected' && t.rejectReason ? `<p class="reject-note">Lý do: ${escapeHTML(t.rejectReason)}</p>` : ''}
       </div>
       <div class="row-actions">
         ${BADGE[t.status]}
@@ -218,6 +246,7 @@ async function confirmReject() {
 
 /* ---------- 9) Khởi động trang ---------- */
 async function init() {
+  syncTravelerTrips();
   initHeader();
   initModals();
 
@@ -260,8 +289,9 @@ function refreshView() {
   renderList();
 }
 window.addEventListener('storage', (e) => {
-  if (e.key !== STORE_KEY) return; // chỉ quan tâm key chung
+  if (e.key !== STORE_KEY && e.key !== 'travelerTrips') return;
   STATE = loadState();             // nạp store mới nhất từ tab khác
+  syncTravelerTrips();
   syncHeaderProfile();             // cập nhật avatar + menu theo hồ sơ mới
   if (ready) refreshView();        // render lại nội dung (nếu đã sẵn sàng)
 });

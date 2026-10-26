@@ -165,11 +165,30 @@ function showResult(useSaved) {
 function acceptAndSave() {
   const trip = loadTrip(TRIP_KEY);
   const saved = Object.assign({}, trip, {
+    id: trip.id || 'traveler-' + Date.now(),
     itinerary: currentItinerary,
     totalDays: currentItinerary.length,
     savedAt: new Date().toISOString()
   });
   localStorage.setItem(SAVED_KEY, JSON.stringify(saved));
+
+  const travelerTrips = readJSON('travelerTrips');
+  const reviewTrips = Array.isArray(travelerTrips) ? travelerTrips : [];
+  reviewTrips.push({
+    id: saved.id,
+    title: saved.name || saved.destinations.join(' – '),
+    days: saved.totalDays,
+    places: saved.destinations.length,
+    status: 'pending',
+    rejectReason: '',
+    comments: {},
+    schedule: saved.itinerary.map((day) => ({
+      day: day.day,
+      city: day.city,
+      acts: day.activities
+    }))
+  });
+  localStorage.setItem('travelerTrips', JSON.stringify(reviewTrips));
 
   // Thêm vào mảng "Chuyến đi của tôi" (phục vụ màn danh sách chuyến đi sau này)
   const list = readJSON(LIST_KEY) || [];
