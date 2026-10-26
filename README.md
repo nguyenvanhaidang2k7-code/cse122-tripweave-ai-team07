@@ -38,14 +38,15 @@
 
 Các dữ liệu liên quan gồm bộ sưu tập, địa điểm, trải nghiệm, lịch trình và hồ sơ hướng dẫn viên. Dữ liệu được xử lý theo phương án triển khai thực tế của dự án.
 
-## 6. Công nghệ sử dụng
+## 6. Công nghệ và công cụ sử dụng
 
 * **HTML5:** Xây dựng cấu trúc giao diện.
 * **CSS3:** Thiết kế giao diện và hỗ trợ responsive.
 * **JavaScript:** Xử lý sự kiện và tương tác trên giao diện.
-* **JSON / LocalStorage / API:** Quản lý dữ liệu theo phương án triển khai.
-* **Figma / Canva:** Thiết kế giao diện.
+* **Canva:** Thiết kế giao diện.
 * **Git / GitHub:** Quản lý mã nguồn và làm việc nhóm.
+* **Trello:** Quản lý công việc, phân chia nhiệm vụ và theo dõi tiến độ dự án.
+
 
   
 ## 7. Link thiết kế Canva
