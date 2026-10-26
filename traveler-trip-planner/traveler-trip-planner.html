@@ -107,9 +107,36 @@
             </div>
           </div>
 
-          <!-- Cột phải: ô ảnh giả minh họa -->
-          <div class="img-placeholder planner__img">Ảnh minh họa</div>
+          <!-- Cột phải: tải ảnh minh họa chuyến đi -->
+          <div class="planner__img">
+            <h3 class="planner__img-title">Ảnh minh họa chuyến đi</h3>
+
+            <p class="planner__img-text">
+              Tải lên hình ảnh địa điểm hoặc ảnh của bạn.
+            </p>
+
+            <label for="tripImage" class="upload-area">
+              <span class="upload-icon">＋</span>
+              <span>Tải ảnh từ thiết bị</span>
+            </label>
+
+            <input
+              type="file"
+              id="tripImage"
+              accept="image/jpeg,image/png,image/webp"
+              hidden
+            >
+
+            <div class="image-preview-box" id="imagePreviewBox" hidden>
+              <img id="imagePreview" alt="Ảnh minh họa chuyến đi">
+
+              <button type="button" id="removeImageBtn" class="remove-image-btn">
+                Xóa ảnh
+              </button>
+            </div>
+          </div>  
         </div>
+
 
         <!-- Nút tạo lịch trình: lưu currentTrip rồi sang trang AI Itinerary -->
         <button class="btn btn--primary btn--block" id="createBtn">Tạo lịch trình AI</button>
