@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TripWeave AI – Lập kế hoạch chuyến đi</title>
-  <!-- CSS riêng của trang (bên trong đã @import common.css) -->
   <link rel="stylesheet" href="traveler-trip-planner.css">
 </head>
 <body>
-
   <!-- ===================== TOPBAR (khung chung mọi trang) ===================== -->
   <header class="topbar">
     <a class="topbar__logo" href="../traveler-discover/traveler-discover.html">
@@ -95,7 +93,7 @@
 
             <!-- Sở thích: chip chọn nhiều -->
             <div class="form-group">
-              <span class="form-label">Sở thích (chọn nhiều)</span>
+              <span class="form-label">Sở thích</span>
               <div class="chip-row" id="interestChips"></div>
             </div>
 
@@ -137,7 +135,6 @@
           </div>  
         </div>
 
-
         <!-- Nút tạo lịch trình: lưu currentTrip rồi sang trang AI Itinerary -->
         <button class="btn btn--primary btn--block" id="createBtn">Tạo lịch trình AI</button>
         <p class="planner__hint">
@@ -147,6 +144,14 @@
       </section>
     </main>
   </div>
+
+  <!-- JS dùng chung: seed dữ liệu + avatar + chuông thông báo -->
+  <script src="../common.js"></script>
+  <!-- JS riêng của trang -->
+  <script src="traveler-trip-planner.js"></script>
+</body>
+</html>
+
 
   <!-- JS dùng chung: seed dữ liệu + avatar + chuông thông báo -->
   <script src="../common.js"></script>
