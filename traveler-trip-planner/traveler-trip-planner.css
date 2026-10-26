@@ -16,7 +16,89 @@
   gap: 32px;
   margin-bottom: 28px;
 }
-.planner__img { height: 100%; min-height: 320px; }
+
+/* Khu vực tải ảnh chuyến đi */
+.planner__img {
+  align-self: start;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+}
+
+.planner__img-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.planner__img-text {
+  color: var(--color-text-sub);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.upload-area {
+  min-height: 190px;
+  padding: 20px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.upload-area:hover {
+  border-color: var(--color-primary);
+}
+
+.upload-icon {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.upload-area small {
+  color: var(--color-text-sub);
+  font-size: 12px;
+}
+
+.image-preview-box {
+  margin-top: 16px;
+}
+
+.image-preview-box img {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.remove-image-btn {
+  margin-top: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .planner__img {
+    width: 100%;
+  }
+
+  .upload-area {
+    min-height: 150px;
+  }
+}
 
 /* Hàng chứa 2 ô ngày (bắt đầu / kết thúc) */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
