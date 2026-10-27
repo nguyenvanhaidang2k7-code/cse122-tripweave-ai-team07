@@ -95,4 +95,4 @@ https://www.youtube.com/playlist?list=PLRN9y_MQt1O0
 
 8. Link GitHub
 - Repository cá nhân SV1:  https://github.com/nguyenthingan2007/CSE122-TripWeave-AI-SV01
-- Repository nhóm: cse122-tripweave-ai-team07
+- Repository nhóm: https://github.com/nguyenvanhaidang2k7-code/cse122-tripweave-ai-team07/branches
